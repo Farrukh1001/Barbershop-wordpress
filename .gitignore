@@ -1,0 +1,8 @@
+/*
+!/.gitignore
+!/themes/
+/themes/*
+!/themes/barbershop/
+!/plugins/
+/plugins/*
+!/plugins/barbershop-core/
