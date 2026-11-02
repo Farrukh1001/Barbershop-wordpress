@@ -111,3 +111,30 @@ function barbershop_save_details( $post_id ) {
     }
 }
 add_action( 'save_post', 'barbershop_save_details' );
+
+function barbershop_append_booking_note( $content ) {
+    if ( is_singular( 'bs_service' ) && is_main_query() ) {
+        $content .= '<p><strong>Walk-ins welcome. Call us to book.</strong></p>';
+    }
+    return $content;
+}
+add_filter( 'the_content', 'barbershop_append_booking_note' );
+
+
+function barbershop_opening_hours_shortcode() {
+    $hours = array(
+        'Mon–Fri'  => '9:00 – 18:00',
+        'Saturday' => '10:00 – 16:00',
+        'Sunday'   => 'Closed',
+    );
+    $out = '<ul class="barbershop-hours">';
+    foreach ( $hours as $days => $time ) {
+        $out .= sprintf(
+            '<li><strong>%s</strong> %s</li>',
+            esc_html( $days ),
+            esc_html( $time )
+        );
+    }
+    return $out . '</ul>';
+}
+add_shortcode( 'opening_hours', 'barbershop_opening_hours_shortcode' );
