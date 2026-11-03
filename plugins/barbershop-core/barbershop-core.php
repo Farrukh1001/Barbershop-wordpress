@@ -138,3 +138,10 @@ function barbershop_opening_hours_shortcode() {
     return $out . '</ul>';
 }
 add_shortcode( 'opening_hours', 'barbershop_opening_hours_shortcode' );
+
+// Remove the WordPress version from <head> and RSS feeds
+remove_action( 'wp_head', 'wp_generator' );
+add_filter( 'the_generator', '__return_empty_string' );
+
+// Turn off XML-RPC
+add_filter( 'xmlrpc_enabled', '__return_false' );
